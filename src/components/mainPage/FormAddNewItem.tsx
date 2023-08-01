@@ -1,5 +1,5 @@
-import { FC, useRef } from 'react';
-import { Input, Button, Form, DatePicker, InputNumber, FormInstance } from 'antd';
+import { FC, useEffect, useRef } from 'react';
+import { Input, Button, Form, DatePicker, InputNumber, FormInstance, InputRef } from 'antd';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { addTableItem } from '../../store/reducers/tableDataSlice';
 import { FormFieldType } from '../../store/reducers/types/tableTypes';
@@ -13,6 +13,7 @@ interface FormAddNewItemProps {
 const FormAddNewItem: FC<FormAddNewItemProps> = ({ onCancel }) => {
   const dispatch = useAppDispatch();
   const formRef = useRef<FormInstance>(null);
+  const firstInputRef = useRef<InputRef>(null);
 
   const resetForm = () => {
     formRef.current?.resetFields();
@@ -29,6 +30,10 @@ const FormAddNewItem: FC<FormAddNewItemProps> = ({ onCancel }) => {
     toast.error('Please fill in all required fields');
   };
 
+  useEffect(() => {
+    firstInputRef.current?.focus();
+  }, []);
+
   return (
     <Form
       name="addItem"
@@ -44,7 +49,7 @@ const FormAddNewItem: FC<FormAddNewItemProps> = ({ onCancel }) => {
         label="Name"
         name="name"
         rules={[{ required: true, message: 'Please input name!' }]}>
-        <Input />
+        <Input ref={firstInputRef} />
       </Form.Item>
       <Form.Item<FormFieldType>
         label="Age"
