@@ -7,7 +7,7 @@ interface initialStateTypes {
 }
 
 const initialState = {
-  isThemeLight: storageGetItem(storage.theme) || false
+  isThemeLight: storageGetItem(storage.theme) ?? false
 };
 
 export const themeSlice = createSlice({
