@@ -10,7 +10,7 @@ interface initialStateTypes {
 }
 
 const initialState = {
-  tableData: storageGetItem(storage.tableData) || initialTableData
+  tableData: storageGetItem(storage.tableData) ?? initialTableData
 };
 
 export const tableDataSlice = createSlice({
@@ -28,10 +28,14 @@ export const tableDataSlice = createSlice({
     },
     deleteTableItem: (state, { payload }: PayloadAction<string>) => {
       state.tableData = state.tableData.filter((tableItem) => tableItem.id !== payload);
+    },
+    resetTableData: (state) => {
+      state.tableData = initialTableData;
     }
   }
 });
 
 export const selectorTableDataSlice = (state: IRootState) => state.tableDataSlice;
-export const { addTableItem, editTableItem, deleteTableItem } = tableDataSlice.actions;
+export const { addTableItem, editTableItem, deleteTableItem, resetTableData } =
+  tableDataSlice.actions;
 export default tableDataSlice.reducer;

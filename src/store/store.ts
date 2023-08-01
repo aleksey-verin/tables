@@ -15,6 +15,7 @@ export const store = configureStore({
 
 store.subscribe(() => {
   storageSetItem(storage.theme, store.getState().themeSlice.isThemeLight);
+  storageSetItem(storage.tableData, store.getState().tableDataSlice.tableData);
 });
 
 export type IRootState = ReturnType<typeof store.getState>;
