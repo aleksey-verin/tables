@@ -47,9 +47,9 @@ const columns: ColumnsType<TableDataType> = [
 interface TableMainProps {}
 
 const TableMain: FC<TableMainProps> = () => {
-  const { tableData } = useSelector(selectorTableDataSlice);
+  const { filteredTableData } = useSelector(selectorTableDataSlice);
 
-  return <Table pagination={false} columns={columns} dataSource={tableData} />;
+  return <Table pagination={false} columns={columns} dataSource={filteredTableData} />;
 };
 
 export default TableMain;
