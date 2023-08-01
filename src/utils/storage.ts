@@ -1,5 +1,6 @@
 export const storage = {
-  theme: 'tables-app-theme'
+  theme: 'tables-app-theme',
+  tableData: 'tables-app-tableData'
 };
 
 export const storageGetItem = (storageItem: string) => {

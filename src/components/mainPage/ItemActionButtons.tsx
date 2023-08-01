@@ -1,14 +1,22 @@
 import { FC } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Space } from 'antd';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { deleteTableItem } from '../../store/reducers/tableDataSlice';
 
-interface ActionsProps {
-  id: string;
+interface ItemActionButtonsProps {
+  id: number;
 }
 
-const Actions: FC<ActionsProps> = ({ id }) => {
-  const handleAdd = (itemId: string) => {
+const ItemActionButtons: FC<ItemActionButtonsProps> = ({ id }) => {
+  const dispatch = useAppDispatch();
+
+  const handleAdd = (itemId: number) => {
     console.log(itemId);
+  };
+
+  const handleDeleteItem = (itemId: number) => {
+    dispatch(deleteTableItem(itemId));
   };
 
   return (
@@ -16,7 +24,7 @@ const Actions: FC<ActionsProps> = ({ id }) => {
       <Button onClick={() => handleAdd(id)} type="dashed" icon={<EditOutlined />}>
         Edit
       </Button>
-      <Button danger type="dashed" icon={<DeleteOutlined />}>
+      <Button onClick={() => handleDeleteItem(id)} danger type="dashed" icon={<DeleteOutlined />}>
         Delete
       </Button>
     </Space>
@@ -31,4 +39,4 @@ const Actions: FC<ActionsProps> = ({ id }) => {
   );
 };
 
-export default Actions;
+export default ItemActionButtons;
