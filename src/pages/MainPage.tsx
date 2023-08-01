@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ContainerContent from '../components/ContainerContent';
 import TableMain from '../components/mainPage/TableMain';
 import TableTitle from '../components/mainPage/TableTitle';
-import { Space } from 'antd';
 
 const breadcrumbItems = [
   {

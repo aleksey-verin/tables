@@ -16,7 +16,3 @@ export const getViewedDate = (date: number) => {
     return dayjs.unix(date).format('D MMMM YYYY');
   }
 };
-
-export const getData = (id: string) => {
-  console.log(id);
-};

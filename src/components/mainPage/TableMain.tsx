@@ -1,6 +1,6 @@
-import Table, { ColumnsType, TableProps } from 'antd/es/table';
+import Table, { ColumnsType } from 'antd/es/table';
 import { FC } from 'react';
-import { TableDataType } from '../../store/reducers/types';
+import { TableDataType } from '../../store/reducers/types/tableTypes';
 import { getViewedDate } from '../../utils/helpers';
 import ItemActionButtons from './ItemActionButtons';
 import { useSelector } from 'react-redux';
@@ -39,21 +39,17 @@ const columns: ColumnsType<TableDataType> = [
   {
     title: 'Actions',
     dataIndex: 'id',
-    render: (id: number) => <ItemActionButtons id={id} />,
+    render: (id: string) => <ItemActionButtons id={id} />,
     width: '200px'
   }
 ];
 
-const onChange: TableProps<TableDataType>['onChange'] = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
-
 interface TableMainProps {}
 
-const TableMain: FC<TableMainProps> = ({}) => {
+const TableMain: FC<TableMainProps> = () => {
   const { tableData } = useSelector(selectorTableDataSlice);
 
-  return <Table pagination={false} columns={columns} dataSource={tableData} onChange={onChange} />;
+  return <Table pagination={false} columns={columns} dataSource={tableData} />;
 };
 
 export default TableMain;

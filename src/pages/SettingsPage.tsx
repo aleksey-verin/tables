@@ -21,7 +21,6 @@ const SettingsPage: FC = () => {
   const [themeSwitchValue, setThemeSwitchValue] = useState(isThemeLight);
 
   const handleThemeSwitch = (value: boolean) => {
-    console.log(value);
     if (value) {
       setThemeSwitchValue(true);
       dispatch(setThemeLight());
