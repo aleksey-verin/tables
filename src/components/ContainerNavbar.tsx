@@ -33,7 +33,7 @@ const ContainerNavbar: FC = () => {
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 1,
+        zIndex: 2,
         width: '100%',
         display: 'flex',
         alignItems: 'center'
