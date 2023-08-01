@@ -3,8 +3,9 @@ import ContainerContent from '../components/ContainerContent';
 import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
-import { tableData } from '../assets/tableData';
-import dayjs from 'dayjs';
+import { initialTableData } from '../assets/initialTableData';
+import { getViewedDate } from '../utils/helpers';
+import Actions from './Actions';
 
 const breadcrumbItems = [
   {
@@ -20,7 +21,7 @@ interface DataType {
   name: string;
   age: number;
   address: string;
-  createdAt: string;
+  createdAt: number;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -47,14 +48,17 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: 'Created at',
-    dataIndex: 'createdAt'
-    // onCell: (record,) => {
-    //   dayjs(record, 'YYYY-MM-DD')
-    // },
-    // render: (date) => <div>{dayjs(date, 'YYYY-MM-DD')}</div>
-    // sorter: {
-    //   compare: (a, b) => a.createdAt.localeCompare(b.createdAt)
-    // }
+    dataIndex: 'createdAt',
+    render: (date: number) => getViewedDate(date),
+    sorter: {
+      compare: (a, b) => a.createdAt - b.createdAt
+    }
+  },
+  {
+    title: 'Actions',
+    dataIndex: 'key',
+    render: (key: string) => <Actions id={key} />,
+    width: '200px'
   }
 ];
 
@@ -67,7 +71,12 @@ interface MainPageProps {}
 const MainPage: FC<MainPageProps> = () => {
   return (
     <ContainerContent breadcrumbItems={breadcrumbItems}>
-      <Table columns={columns} dataSource={tableData} onChange={onChange} />
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={initialTableData}
+        onChange={onChange}
+      />
     </ContainerContent>
   );
 };

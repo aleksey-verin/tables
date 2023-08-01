@@ -11,6 +11,12 @@ export function extractPath(input: string): string {
   return input;
 }
 
-export const getFullData = (date: string) => {
-  return dayjs.unix(+date);
+export const getViewedDate = (date: number) => {
+  if (date) {
+    return dayjs.unix(date).format('D MMMM YYYY');
+  }
+};
+
+export const getData = (id: string) => {
+  console.log(id);
 };
