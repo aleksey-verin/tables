@@ -1,20 +1,21 @@
 import { Button, Space } from 'antd';
 import { PlusCircleOutlined, RollbackOutlined } from '@ant-design/icons';
 import { FC, useState } from 'react';
-import ModalAddNewItem from '../modals/ModalAddNewItem';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { resetTableData } from '../../store/reducers/tableDataSlice';
+import ModalProvider from '../modals/ModalProvider';
+import FormAddNewItem from '../modals/FormAddNewItem';
 
 const TableTitle: FC = () => {
   const dispatch = useAppDispatch();
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const showModal = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
 
   const hideModal = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
 
   const handleResetData = () => {
@@ -29,7 +30,9 @@ const TableTitle: FC = () => {
       <Button onClick={showModal} type="primary" size="large" icon={<PlusCircleOutlined />}>
         Add New Item
       </Button>
-      <ModalAddNewItem open={open} hideModal={hideModal} />
+      <ModalProvider open={openModal} hideModal={hideModal}>
+        <FormAddNewItem onCancel={hideModal} />
+      </ModalProvider>
     </Space>
   );
 };
