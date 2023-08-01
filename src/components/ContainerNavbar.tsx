@@ -1,5 +1,5 @@
 import { MenuProps, Menu } from 'antd';
-import { MailOutlined, SettingOutlined, HomeOutlined } from '@ant-design/icons';
+import { TableOutlined, SettingOutlined, HomeOutlined } from '@ant-design/icons';
 import { Header } from 'antd/es/layout/layout';
 import { FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -15,7 +15,7 @@ const items: MenuProps['items'] = [
   {
     label: <NavLink to={ROUTES.TABLES_ROUTE}>Tables</NavLink>,
     key: ROUTES.TABLES_ROUTE,
-    icon: <MailOutlined />
+    icon: <TableOutlined />
   },
   {
     label: <NavLink to={ROUTES.SETTINGS_ROUTE}>Settings</NavLink>,
