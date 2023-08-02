@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IRootState } from '../store';
+import { storage, storageGetItem } from '../../utils/storage';
 
 interface initialStateTypes {
   searchValue: string;
 }
 
 const initialState = {
-  searchValue: ''
+  searchValue: storageGetItem(storage.tableFilters) ?? ''
 };
 
 export const tableFiltersSlice = createSlice({
@@ -17,7 +18,7 @@ export const tableFiltersSlice = createSlice({
       state.searchValue = payload;
     },
     clearSearchValue: (state) => {
-      state.searchValue = initialState.searchValue;
+      state.searchValue = '';
     }
   }
 });
