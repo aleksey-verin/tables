@@ -6,11 +6,17 @@ import { resetTableData } from '../../store/reducers/tableDataSlice';
 import ModalProvider from '../modals/ModalProvider';
 import FormAddNewItem from '../modals/FormAddNewItem';
 import Search from 'antd/es/input/Search';
-import { clearSearchValue, setSearchValue } from '../../store/reducers/tableFiltersSlice';
+import {
+  clearSearchValue,
+  selectorTableFiltersSlice,
+  setSearchValue
+} from '../../store/reducers/tableFiltersSlice';
+import { useSelector } from 'react-redux';
 
 const TableTitle: FC = () => {
   const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState(false);
+  const { searchValue } = useSelector(selectorTableFiltersSlice);
 
   const showModal = () => {
     setOpenModal(true);
@@ -44,11 +50,12 @@ const TableTitle: FC = () => {
         onSearch={onSearch}
         style={{ maxWidth: 300 }}
         size="large"
+        defaultValue={searchValue}
       />
       <Button onClick={showModal} type="primary" size="large" icon={<PlusCircleOutlined />}>
         Add New Item
       </Button>
-      <ModalProvider open={openModal} hideModal={hideModal}>
+      <ModalProvider open={openModal} hideModal={hideModal} title="Add New Item">
         <FormAddNewItem onCancel={hideModal} />
       </ModalProvider>
     </Space>

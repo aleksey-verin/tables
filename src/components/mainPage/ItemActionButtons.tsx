@@ -34,7 +34,7 @@ const ItemActionButtons: FC<ItemActionButtonsProps> = ({ id }) => {
       <Button onClick={() => handleDeleteItem(id)} danger type="dashed" icon={<DeleteOutlined />}>
         Delete
       </Button>
-      <ModalProvider open={openModal} hideModal={hideModal}>
+      <ModalProvider open={openModal} hideModal={hideModal} title="Edit Item">
         <FormEditItem onCancel={hideModal} id={id} />
       </ModalProvider>
     </Space>
