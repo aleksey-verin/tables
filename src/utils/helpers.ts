@@ -11,8 +11,8 @@ export function extractPath(input: string): string {
   return input;
 }
 
-export const getViewedDate = (date: number) => {
-  if (date) {
+export const getViewedDate = (date: number): string | undefined => {
+  if (date && typeof date === 'number') {
     return dayjs.unix(date).format('D MMMM YYYY');
   }
 };
