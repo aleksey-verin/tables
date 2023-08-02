@@ -2,14 +2,11 @@ import { Button, Space } from 'antd';
 import { PlusCircleOutlined, RollbackOutlined } from '@ant-design/icons';
 import { FC, useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import {
-  filterTableData,
-  resetFilterTableData,
-  resetTableData
-} from '../../store/reducers/tableDataSlice';
+import { resetTableData } from '../../store/reducers/tableDataSlice';
 import ModalProvider from '../modals/ModalProvider';
 import FormAddNewItem from '../modals/FormAddNewItem';
 import Search from 'antd/es/input/Search';
+import { clearSearchValue, setSearchValue } from '../../store/reducers/tableFiltersSlice';
 
 const TableTitle: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +25,11 @@ const TableTitle: FC = () => {
   };
 
   const onSearch = (value: string) => {
-    console.log(value);
     const searchValue = value.trim();
     if (searchValue) {
-      dispatch(filterTableData(searchValue));
+      dispatch(setSearchValue(searchValue));
     } else {
-      dispatch(resetFilterTableData());
+      dispatch(clearSearchValue());
     }
   };
 
@@ -46,9 +42,8 @@ const TableTitle: FC = () => {
         placeholder="search.."
         allowClear
         onSearch={onSearch}
-        style={{ width: 300 }}
+        style={{ maxWidth: 300 }}
         size="large"
-        // onReset={() => console.log('reset')}
       />
       <Button onClick={showModal} type="primary" size="large" icon={<PlusCircleOutlined />}>
         Add New Item

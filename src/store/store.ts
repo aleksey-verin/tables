@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import themeSlice from './reducers/themeSlice';
 import tableDataSlice from './reducers/tableDataSlice';
+import tableFiltersSlice from './reducers/tableFiltersSlice';
 import { storage, storageSetItem } from '../utils/storage';
 
 export const rootReducer = combineReducers({
   themeSlice,
-  tableDataSlice
+  tableDataSlice,
+  tableFiltersSlice
 });
 
 export const store = configureStore({

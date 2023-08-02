@@ -1,10 +1,11 @@
 import Table, { ColumnsType } from 'antd/es/table';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { TableDataType } from '../../store/reducers/types/tableTypes';
 import { getViewedDate } from '../../utils/helpers';
 import ItemActionButtons from './ItemActionButtons';
 import { useSelector } from 'react-redux';
 import { selectorTableDataSlice } from '../../store/reducers/tableDataSlice';
+import { selectorTableFiltersSlice } from '../../store/reducers/tableFiltersSlice';
 
 const columns: ColumnsType<TableDataType> = [
   {
@@ -47,9 +48,20 @@ const columns: ColumnsType<TableDataType> = [
 interface TableMainProps {}
 
 const TableMain: FC<TableMainProps> = () => {
-  const { filteredTableData } = useSelector(selectorTableDataSlice);
+  const { tableData } = useSelector(selectorTableDataSlice);
+  const { searchValue } = useSelector(selectorTableFiltersSlice);
 
-  return <Table pagination={false} columns={columns} dataSource={filteredTableData} />;
+  const filteredData = useMemo(() => {
+    return tableData.filter(
+      (tableItem) =>
+        tableItem.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        tableItem.address.toLowerCase().includes(searchValue.toLowerCase()) ||
+        tableItem.age.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
+        getViewedDate(tableItem.createdAt)?.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [tableData, searchValue]);
+
+  return <Table pagination={false} columns={columns} dataSource={filteredData} />;
 };
 
 export default TableMain;

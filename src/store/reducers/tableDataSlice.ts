@@ -4,16 +4,13 @@ import { storage, storageGetItem } from '../../utils/storage';
 import { initialTableData } from '../../assets/initialTableData';
 import { FormFieldType, TableDataType } from './types/tableTypes';
 import { v4 as uuidv4 } from 'uuid';
-import { getViewedDate } from '../../utils/helpers';
 
 interface initialStateTypes {
   tableData: TableDataType[];
-  filteredTableData: TableDataType[];
 }
 
 const initialState = {
-  tableData: storageGetItem(storage.tableData) ?? initialTableData,
-  filteredTableData: storageGetItem(storage.tableData) ?? initialTableData
+  tableData: storageGetItem(storage.tableData) ?? initialTableData
 };
 
 export const tableDataSlice = createSlice({
@@ -34,29 +31,11 @@ export const tableDataSlice = createSlice({
     },
     resetTableData: (state) => {
       state.tableData = initialTableData;
-    },
-    filterTableData: (state, { payload }: PayloadAction<string>) => {
-      state.filteredTableData = state.tableData.filter(
-        (tableItem) =>
-          tableItem.name.toLowerCase().includes(payload.toLowerCase()) ||
-          tableItem.address.toLowerCase().includes(payload.toLowerCase()) ||
-          tableItem.age.toString().toLowerCase().includes(payload.toLowerCase()) ||
-          getViewedDate(tableItem.createdAt)?.toLowerCase().includes(payload.toLowerCase())
-      );
-    },
-    resetFilterTableData: (state) => {
-      state.filteredTableData = state.tableData;
     }
   }
 });
 
 export const selectorTableDataSlice = (state: IRootState) => state.tableDataSlice;
-export const {
-  addTableItem,
-  editTableItem,
-  deleteTableItem,
-  resetTableData,
-  filterTableData,
-  resetFilterTableData
-} = tableDataSlice.actions;
+export const { addTableItem, editTableItem, deleteTableItem, resetTableData } =
+  tableDataSlice.actions;
 export default tableDataSlice.reducer;
